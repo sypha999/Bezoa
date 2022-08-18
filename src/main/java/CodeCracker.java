@@ -4,6 +4,7 @@ import java.util.Map.Entry;
 public class CodeCracker {
     public static void main(String[] args) {
 
+        System.out.println(encoder("i)\"h %d&> h)dja& *> >c%d&>&"));
     }
 
     public static String encoder(String s) {
@@ -42,7 +43,7 @@ public class CodeCracker {
         int entry = 0;
 
         while (!validEntry) {
-            System.out.println("for encryption enter 1 \n for decryption enter 2\n");
+            System.out.println("Enter 1 for Encryption\nEnter 2 for Decryption \n");
             String input = scanner.nextLine();
             try {
                 entry = Integer.parseInt(input);
@@ -69,16 +70,13 @@ public class CodeCracker {
 
             //starting decryption process
             for (int i = 0; i < str.length; i++) {
-                if (encoderMap.containsKey(str[i])) {
-
+                if (encoderMap.containsValue(str[i])) {
                     for (Entry<String, String> val : encoderMap.entrySet()) {
                         if (val.getValue().equals(str[i])) {
                             code = code + val.getKey();
-                            break;
+
                         }
-
                     }
-
                 } else {
                     code = code + str[i];
                 }
