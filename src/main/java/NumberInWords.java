@@ -2,12 +2,19 @@ import java.util.*;
 
 public class NumberInWords {
     public static void main(String[] args) {
+    /* USAGE
+                toWord(word, Digit) --> converts from word to digit
+                toWord(String value of digit, Word) --> converts from digit to word
+
+     */
+
 
     }
 
-    public static String toWord(String word){
+    public static String toWord(String word, String method){
         String ans = "";
         Map <Integer,String> myMap = new HashMap<>();
+        Map <Integer,String> myWordMap = new HashMap<>();
         myMap.put(1,"one");
         myMap.put(2,"two");
         myMap.put(3,"three");
@@ -36,6 +43,20 @@ public class NumberInWords {
         myMap.put(80,"eighty");
         myMap.put(90,"ninety");
 
+        if(method.toLowerCase().equals(word)){
+        long word2;
+        try{
+            word2 = Long.parseLong(word);
+        }
+        catch (Exception e){
+            System.out.println("please enter just digits");
+        }
+
+        }
+
+        if(method.toLowerCase().equals("digit")){
+
+        }
 
 
         return ans;
