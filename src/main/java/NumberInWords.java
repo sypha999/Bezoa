@@ -13,6 +13,8 @@ public class NumberInWords {
 
         System.out.println(toWord("1","word"));
 
+        System.out.println(fun(222));
+
     }
 
     public static String toWord(String word, String method){
@@ -54,12 +56,6 @@ public class NumberInWords {
             System.out.println("please enter just digits");
         }
 
-
-            for (int i = 0; i < word.length(); i++) {
-
-                if()
-            }
-
         if(myMap.containsKey(( word2))){return myMap.get(word2);}
 
 
@@ -77,6 +73,31 @@ public class NumberInWords {
 
     public static String fun (int a){
         String res="";
+        String wrk=String.valueOf(a);
+        if(myMap.containsKey(a)) return myMap.get(a);
+        // integer a should always have a length of 2 or 3
+        if(String.valueOf(a).length()==2){
+        for (int i = 0; i < String.valueOf(a).length() ; i++) {
+            if(i==0){res = res + myMap.get(Integer.parseInt(wrk.substring(i,i+1)+"0"));}
+            res = res + myMap.get(a%10);
+            break;
+        }}
+
+        if(String.valueOf(a).length()==3){
+            for (int i = 0; i < String.valueOf(a).length() ; i++) {
+                if(i==0){res = res + myMap.get(Integer.parseInt(wrk.substring(i,i+1))) +" hundred and";
+                    wrk=wrk.substring(1);}
+
+                if(wrk.length()==2){
+                    res = res +" "+ myMap.get(Integer.parseInt(wrk.substring(0,1)+"0"));
+                    wrk=wrk.substring(1);
+                }
+                if(wrk.length()==1){
+                    res = res +" "+ myMap.get(Integer.parseInt(wrk));
+                    break;
+                }
+
+            }}
 
         return res;
     }
