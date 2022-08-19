@@ -10,6 +10,8 @@ public class NumberInWords {
                 convert(String value of digit, Word) --> converts from digit to word
 
      */
+        //System.out.println(convert("24561003","word"));
+        System.out.println(convert("twenty four million, five hundred and sixty one thousand, and three","digit"));
     }
 
     public static String convert(String word, String method){
@@ -56,7 +58,7 @@ public class NumberInWords {
         if(myMap.containsKey(( word2))){return myMap.get(word2);}
         else{
             int count = word3.length()%3;
-            if(count!=0){ans = fun(Integer.parseInt(word3.substring(0,count))) + " " +fun2(word3.length()-count);
+            if(count!=0){ans = fun(Integer.parseInt(word3.substring(0,count))) + " " +fun2(word3.length()-count)+",";
             word3=word3.substring(count);}
 
           while ( word3.length()!=0) {
@@ -64,17 +66,19 @@ public class NumberInWords {
                   ans = ans + " and "+myMap.get(Integer.parseInt(word3.substring(2,3)));
                   break;
               }
-              ans = ans + " "+fun(Integer.parseInt(word3.substring(0,3)))+ " " + fun2(word3.length()-3);
+              ans = ans + " "+fun(Integer.parseInt(word3.substring(0,3)))+ " " + fun2(word3.length()-3)+",";
               if(word3.length()<4){word3="";}
               else word3 = word3.substring(3);
             }}}
 
-        if(method.equalsIgnoreCase("digit")){
+        else if(method.equalsIgnoreCase("digit")){
             long res2=0;
             if (myWordMap.containsKey(word)) return myWordMap.get(word);
+
             else{
+                String [] spl = word.replaceAll("and","").split(",");
 
-
+                System.out.println(Arrays.toString(spl));
 
                  }
 
