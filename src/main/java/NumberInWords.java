@@ -6,20 +6,16 @@ public class NumberInWords {
     public static Map <String,String> myWordMap = new HashMap<>();
     public static void main(String[] args) {
     /* USAGE
-                toWord(word, Digit) --> converts from word to digit
-                toWord(String value of digit, Word) --> converts from digit to word
+                convert(word, Digit) --> converts from word to digit
+                convert(String value of digit, Word) --> converts from digit to word
 
      */
-
-        System.out.println(convert("2724223","word"));
-       // System.out.println(convert("two hundred", "digit"));
-
-
     }
 
     public static String convert(String word, String method){
         String ans = "";
         String word3=word;
+
         myMap.put(1,"one"); myWordMap.put("one","1");
         myMap.put(2,"two"); myWordMap.put("two","2");
         myMap.put(3,"three"); myWordMap.put("three","3");
@@ -59,17 +55,31 @@ public class NumberInWords {
 
         if(myMap.containsKey(( word2))){return myMap.get(word2);}
         else{
-            int count=word3.length()%3;
+            int count = word3.length()%3;
             if(count!=0){ans = fun(Integer.parseInt(word3.substring(0,count))) + " " +fun2(word3.length()-count);
             word3=word3.substring(count);}
+
           while ( word3.length()!=0) {
+              if( word3.substring(0,1).equals("0") && word3.substring(1,2).equals("0")){
+                  ans = ans + " and "+myMap.get(Integer.parseInt(word3.substring(2,3)));
+                  break;
+              }
               ans = ans + " "+fun(Integer.parseInt(word3.substring(0,3)))+ " " + fun2(word3.length()-3);
               if(word3.length()<4){word3="";}
               else word3 = word3.substring(3);
             }}}
 
         if(method.equalsIgnoreCase("digit")){
+            long res2=0;
+            if (myWordMap.containsKey(word)) return myWordMap.get(word);
+            else{
 
+
+
+                 }
+
+
+            return String.valueOf(res2);
         }
 
 
@@ -80,6 +90,7 @@ public class NumberInWords {
         String res="";
         String wrk=String.valueOf(a);
         if(myMap.containsKey(a)) return myMap.get(a);
+
         // integer a should always have a length of 2 or 3
         if(String.valueOf(a).length()==2){
         for (int i = 0; i < String.valueOf(a).length() ; i++) {
@@ -90,14 +101,27 @@ public class NumberInWords {
 
         if(String.valueOf(a).length()==3){
             for (int i = 0; i < String.valueOf(a).length() ; i++) {
+                if(wrk.length()==3 && (wrk.substring(0,1).equals("0")) && (wrk.substring(1,2).equals("0"))){
+                    res = res +" and "  +myMap.get(Integer.parseInt(wrk.substring(2,3)));
+                        break;
+                }
+
                 if(i==0){res = res + myMap.get(Integer.parseInt(wrk.substring(i,i+1))) +" hundred and";
                     wrk=wrk.substring(1);}
 
-                if(wrk.length()==2){
+                else if(wrk.length()==2 && !(wrk.substring(0,1).equals("0"))){
                     res = res +" "+ myMap.get(Integer.parseInt(wrk.substring(0,1)+"0"));
                     wrk=wrk.substring(1);
                 }
-                if(wrk.length()==1){
+
+                else if(wrk.length()==2 && (wrk.substring(0,1).equals("0"))){
+                    res = res +" "  +myMap.get(Integer.parseInt(wrk.substring(1,2)));
+                    wrk=wrk.substring(1);
+                    break;
+
+                }
+
+                else if(wrk.length()==1){
                     res = res +" "+ myMap.get(Integer.parseInt(wrk));
                     break;
                 }
@@ -115,6 +139,18 @@ public class NumberInWords {
         if(length==12){ return "trillion";}
         if(length==15){ return "quadrillion";}
         if(length==18){ return "quintillion";}
+
+        return res;
+    }
+
+    public static String reversefun2(String length){
+        String res="";
+        if(length.equalsIgnoreCase("thousand")){ return "000" ;}
+        if(length.equalsIgnoreCase("million")){ return "000000" ;}
+        if(length.equalsIgnoreCase("billion")){ return "000000000";}
+        if(length.equalsIgnoreCase("trillion")){ return "000000000000";}
+        if(length.equalsIgnoreCase("quadrillion")){ return "000000000000000";}
+        if(length.equalsIgnoreCase("quintillion")){ return "000000000000000000";}
 
         return res;
     }
