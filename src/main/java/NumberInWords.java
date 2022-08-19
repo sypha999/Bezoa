@@ -1,6 +1,9 @@
 import java.util.*;
 
 public class NumberInWords {
+
+    public static Map <Integer,String> myMap = new HashMap<>();
+    public static Map <Integer,String> myWordMap = new HashMap<>();
     public static void main(String[] args) {
     /* USAGE
                 toWord(word, Digit) --> converts from word to digit
@@ -8,13 +11,12 @@ public class NumberInWords {
 
      */
 
+        System.out.println(toWord("1","word"));
 
     }
 
     public static String toWord(String word, String method){
         String ans = "";
-        Map <Integer,String> myMap = new HashMap<>();
-        Map <Integer,String> myWordMap = new HashMap<>();
         myMap.put(1,"one");
         myMap.put(2,"two");
         myMap.put(3,"three");
@@ -43,22 +45,41 @@ public class NumberInWords {
         myMap.put(80,"eighty");
         myMap.put(90,"ninety");
 
-        if(method.toLowerCase().equals(word)){
-        long word2;
+        if(method.equalsIgnoreCase("word")){
+        int word2 = 0;
         try{
-            word2 = Long.parseLong(word);
+            word2 = Integer.parseInt(word);
         }
         catch (Exception e){
             System.out.println("please enter just digits");
         }
 
+
+            for (int i = 0; i < word.length(); i++) {
+
+                if()
+            }
+
+        if(myMap.containsKey(( word2))){return myMap.get(word2);}
+
+
+
+
         }
 
-        if(method.toLowerCase().equals("digit")){
+        if(method.equalsIgnoreCase("digit")){
 
         }
 
 
         return ans;
     }
+
+    public static String fun (int a){
+        String res="";
+
+        return res;
+    }
+
+
 }
