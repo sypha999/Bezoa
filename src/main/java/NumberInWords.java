@@ -11,14 +11,14 @@ public class NumberInWords {
 
      */
 
-        System.out.println(toWord("1","word"));
+        System.out.println(toWord("01009009","word"));
 
-        System.out.println(fun(222));
 
     }
 
     public static String toWord(String word, String method){
         String ans = "";
+        String word3=word;
         myMap.put(1,"one");
         myMap.put(2,"two");
         myMap.put(3,"three");
@@ -58,7 +58,17 @@ public class NumberInWords {
 
         if(myMap.containsKey(( word2))){return myMap.get(word2);}
 
+        else{
+            int count=word3.length()%3;
+            if(count!=0){ans = fun(Integer.parseInt(word3.substring(0,count))) + " " +fun2(word3.length()-count);
+            word3=word3.substring(count);}
+          while ( word3.length()!=0) {
+              ans = ans + " "+fun(Integer.parseInt(word3.substring(0,3)))+ " " + fun2(word3.length()-3);
+              if(word3.length()<4){word3="";}
+              else word3 = word3.substring(3);
+            }
 
+        }
 
 
         }
@@ -78,7 +88,7 @@ public class NumberInWords {
         // integer a should always have a length of 2 or 3
         if(String.valueOf(a).length()==2){
         for (int i = 0; i < String.valueOf(a).length() ; i++) {
-            if(i==0){res = res + myMap.get(Integer.parseInt(wrk.substring(i,i+1)+"0"));}
+            if(i==0){res = res + myMap.get(Integer.parseInt(wrk.substring(i,i+1)+"0"))+" ";}
             res = res + myMap.get(a%10);
             break;
         }}
@@ -98,6 +108,18 @@ public class NumberInWords {
                 }
 
             }}
+
+        return res;
+    }
+
+    public static String fun2(int length){
+        String res="";
+        if(length==3){ return "thousand" ;}
+        if(length==6){ return "million" ;}
+        if(length==9){ return "billion";}
+        if(length==12){ return "trillion";}
+        if(length==15){ return "quadrillion";}
+        if(length==15){ return "quintillion";}
 
         return res;
     }
