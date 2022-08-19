@@ -11,8 +11,8 @@ public class NumberInWords {
 
      */
 
-        System.out.println(convert("01009009","word"));
-        System.out.println(convert("two hundred", "digit"));
+        System.out.println(convert("2724223","word"));
+       // System.out.println(convert("two hundred", "digit"));
 
 
     }
