@@ -1,3 +1,14 @@
+/* USAGE
+              convert(word, Digit) --> converts from word to digit
+              convert(String value of digit, Word) --> converts from digit to word
+
+              Note: The code follows a format of conversion used only in this class,
+              so to convert a string to a digit, you have to use the digit to string
+              conversion first to get the exact output to be used for the reversal of the conversion
+
+*/
+
+
 import java.util.*;
 
 public class NumberInWords {
@@ -5,13 +16,7 @@ public class NumberInWords {
     public static Map <Integer,String> myMap = new HashMap<>();
     public static Map <String,String> myWordMap = new HashMap<>();
     public static void main(String[] args) {
-    /* USAGE
-                convert(word, Digit) --> converts from word to digit
-                convert(String value of digit, Word) --> converts from digit to word
 
-     */
-        //System.out.println(convert("24561003","word"));
-        System.out.println(convert("twenty four million, five hundred and sixty one thousand, and three","digit"));
     }
 
     public static String convert(String word, String method){
@@ -76,10 +81,12 @@ public class NumberInWords {
             if (myWordMap.containsKey(word)) return myWordMap.get(word);
 
             else{
-                String [] spl = word.replaceAll("and","").split(",");
+                String [] spl = word.replaceAll("and","").split(", ");
 
-                System.out.println(Arrays.toString(spl));
-
+                for (int i = 0; i < spl.length; i++) {
+                    if (i==0){res2+=reversefun(spl[i].stripLeading());}
+                    else{res2+=reversefunsecond(spl[i].stripLeading());}
+                }
                  }
 
 
@@ -135,6 +142,47 @@ public class NumberInWords {
         return res;
     }
 
+    public static long reversefun(String a){
+        long ans=0L;
+
+        String [] pack =a.replaceAll("  "," ").split(" ");
+
+        if(pack.length==1 && myWordMap.get(pack[0])!=null) return Long.parseLong(myWordMap.get(pack[0]));
+
+        for (int i = 0; i < pack.length-1; i++) {
+
+            if(myWordMap.get(pack[i])!=null)
+                ans+= Long.parseLong(myWordMap.get(pack[i]));
+            else if(myWordMap.get(pack[i])!=null)
+            ans+= Long.parseLong(myWordMap.get(pack[i]));
+        }
+        ans=Long.parseLong( String.valueOf(ans)+ reversefun2(pack[pack.length-1]));
+        return ans;
+    }
+
+
+    public static long reversefunsecond(String a){
+        long ans=0L;
+        String [] pack =a.replaceAll("  "," ").split(" ");
+        int count=0;
+        if(pack.length==1 && myWordMap.get(pack[0])!=null) return Long.parseLong(myWordMap.get(pack[0]));
+
+        for (int i = 0; i < pack.length-1; i++) {
+
+            if(myWordMap.get(pack[i])!=null && !(reversefun2(pack[i+1]).equals("")) && count<1)
+            {  ans+= Long.parseLong(myWordMap.get(pack[i])+reversefun2(pack[i+1]));
+                count++;
+            }
+
+            else if(myWordMap.get(pack[i])!=null )
+            {ans+= Long.parseLong(myWordMap.get(pack[i]));}
+            else if(myWordMap.get(pack[i])!=null)
+            {ans+= Long.parseLong(myWordMap.get(pack[i]));}
+        }
+        ans=Long.parseLong( String.valueOf(ans)+ reversefun2(pack[pack.length-1]));
+        return ans;
+    }
+
     public static String fun2(int length){
         String res="";
         if(length==3){ return "thousand" ;}
@@ -146,10 +194,10 @@ public class NumberInWords {
 
         return res;
     }
-
     public static String reversefun2(String length){
         String res="";
-        if(length.equalsIgnoreCase("thousand")){ return "000" ;}
+        if(length.equalsIgnoreCase("hundred")){ return "00" ;}
+        if(length.equalsIgnoreCase("thousand") || length.equalsIgnoreCase("thous")){ return "000" ;}
         if(length.equalsIgnoreCase("million")){ return "000000" ;}
         if(length.equalsIgnoreCase("billion")){ return "000000000";}
         if(length.equalsIgnoreCase("trillion")){ return "000000000000";}
