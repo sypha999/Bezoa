@@ -17,6 +17,7 @@ public class NumberInWords {
     public static Map <String,String> myWordMap = new HashMap<>();
     public static void main(String[] args) {
 
+        System.out.println(convert("four hundred and ninety eight","digit"));
     }
 
     public static String convert(String word, String method){
@@ -84,8 +85,9 @@ public class NumberInWords {
                 String [] spl = word.replaceAll("and","").split(", ");
 
                 for (int i = 0; i < spl.length; i++) {
-                    if (i==0){res2+=reversefun(spl[i].stripLeading());}
-                    else{res2+=reversefunsecond(spl[i].stripLeading());}
+                    if (i==0 && word.contains(",")){res2+=reversefun(spl[i].stripLeading());}
+                    else if (i==0 && !(word.contains(","))){res2+=reversefunsecond(spl[i].stripLeading());}
+                    else {res2+=reversefunsecond(spl[i].stripLeading());}
                 }
                  }
 
@@ -144,11 +146,8 @@ public class NumberInWords {
 
     public static long reversefun(String a){
         long ans=0L;
-
         String [] pack =a.replaceAll("  "," ").split(" ");
-
         if(pack.length==1 && myWordMap.get(pack[0])!=null) return Long.parseLong(myWordMap.get(pack[0]));
-
         for (int i = 0; i < pack.length-1; i++) {
 
             if(myWordMap.get(pack[i])!=null)
@@ -169,17 +168,16 @@ public class NumberInWords {
 
         for (int i = 0; i < pack.length-1; i++) {
 
-            if(myWordMap.get(pack[i])!=null && !(reversefun2(pack[i+1]).equals("")) && count<1)
+           if(myWordMap.get(pack[i])!=null && !(reversefun2(pack[i+1]).equals("")) && count<1)
             {  ans+= Long.parseLong(myWordMap.get(pack[i])+reversefun2(pack[i+1]));
                 count++;
             }
 
             else if(myWordMap.get(pack[i])!=null )
             {ans+= Long.parseLong(myWordMap.get(pack[i]));}
-            else if(myWordMap.get(pack[i])!=null)
-            {ans+= Long.parseLong(myWordMap.get(pack[i]));}
+
         }
-        ans=Long.parseLong( String.valueOf(ans)+ reversefun2(pack[pack.length-1]));
+        ans=ans+Long.parseLong(myWordMap.get(pack[pack.length-1]));
         return ans;
     }
 
