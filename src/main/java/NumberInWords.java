@@ -17,7 +17,7 @@ public class NumberInWords {
     public static Map <String,String> myWordMap = new HashMap<>();
     public static void main(String[] args) {
 
-        System.out.println(convert("four hundred and ninety eight","digit"));
+        System.out.println(convert("two hundred and forty five million, eight hundred and ninety seven thousand, two hundred and thirty four","word"));
     }
 
     public static String convert(String word, String method){
@@ -96,7 +96,7 @@ public class NumberInWords {
         }
 
 
-        return ans;
+        return ans.substring(0,ans.length()-2);
     }
 
     public static String fun (int a){
@@ -134,7 +134,7 @@ public class NumberInWords {
 
                 }
 
-                else if(wrk.length()==1){
+                else if(wrk.length()==1 && myMap.get(Integer.parseInt(wrk))!=null){
                     res = res +" "+ myMap.get(Integer.parseInt(wrk));
                     break;
                 }
@@ -149,13 +149,16 @@ public class NumberInWords {
         String [] pack =a.replaceAll("  "," ").split(" ");
         if(pack.length==1 && myWordMap.get(pack[0])!=null) return Long.parseLong(myWordMap.get(pack[0]));
         for (int i = 0; i < pack.length-1; i++) {
+            if(i< pack.length-2 && myWordMap.get(pack[i])!=null && reversefun2(pack[i+1])!=null)
+                ans+= Long.parseLong(myWordMap.get(pack[i])+reversefun2(pack[i+1]));
 
-            if(myWordMap.get(pack[i])!=null)
+            else if(myWordMap.get(pack[i])!=null)
                 ans+= Long.parseLong(myWordMap.get(pack[i]));
+
             else if(myWordMap.get(pack[i])!=null)
             ans+= Long.parseLong(myWordMap.get(pack[i]));
         }
-        ans=Long.parseLong( String.valueOf(ans)+ reversefun2(pack[pack.length-1]));
+        if(reversefun2(pack[pack.length-1])!=null)ans=Long.parseLong( String.valueOf(ans)+ reversefun2(pack[pack.length-1]));
         return ans;
     }
 
@@ -177,7 +180,7 @@ public class NumberInWords {
             {ans+= Long.parseLong(myWordMap.get(pack[i]));}
 
         }
-        ans=ans+Long.parseLong(myWordMap.get(pack[pack.length-1]));
+        if(myWordMap.get(pack[pack.length-1])!=null)ans=ans+Long.parseLong(myWordMap.get(pack[pack.length-1]));
         return ans;
     }
 
